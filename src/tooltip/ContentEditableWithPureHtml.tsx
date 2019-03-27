@@ -5,6 +5,14 @@ import {analyzeTokens, lexer} from "./Lexer";
 
 
 export default function ContentEditableWithPureHtml() {
+
+    /**
+     * a very hacky example how to pass a function with a bit of context using global window object
+     */
+    const answer = 42;
+    // @ts-ignore
+    window.printAnswer = () => console.log(`The answer is ${answer}`);
+
     const [html, setHtml] = useState('Start typing <b>here</b>');
 
     const handleChange = (newHtml: string) => {
@@ -26,7 +34,8 @@ export default function ContentEditableWithPureHtml() {
             }
         }).reduce((left, right) => left + right);
 
-        setHtml(processedHtml + "<button onclick='console.log(42)'>Click</button>");
+        // here we can call the function, which has access to local variables in the ContentEditableWithPureHtml function/component
+        setHtml(processedHtml + "<button onclick='window.printAnswer()'>Click</button>");
     };
 
     return <div>
