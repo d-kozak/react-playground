@@ -17,6 +17,7 @@ import * as React from "react";
 import {useState} from "react";
 import * as ReactDOM from 'react-dom';
 import {BrowserRouter as Router, Link, Route} from 'react-router-dom';
+import Editor from "./editor/Editor";
 import Tooltip from './tooltip';
 
 const styles = {
@@ -89,6 +90,11 @@ const App = (props: Props) => {
                             <ListItemText primary="Tooltip"/>
                         </ListItem>
                     </Link>
+                    <Link to="/editor">
+                        <ListItem button={true} onClick={() => setOpen(false)}>
+                            <ListItemText primary="Editor"/>
+                        </ListItem>
+                    </Link>
                 </List>
             </Drawer>
 
@@ -96,6 +102,7 @@ const App = (props: Props) => {
                 <Route path="/" exact={true} component={Home}/>
                 <Route path="/formik" exact={true} component={Formik}/>
                 <Route path="/tooltip" exact={true} component={Tooltip}/>
+                <Route path="/editor" exact={true} component={Editor}/>
             </main>
         </Router>
     </div>
