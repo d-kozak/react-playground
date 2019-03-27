@@ -1,4 +1,4 @@
-import {lexer} from "./Lexer";
+import {analyzeTokens, lexer, text, whitespace} from "./Lexer";
 
 it('testing typeof', () => {
     const dog = 'dog';
@@ -29,7 +29,70 @@ it('testing expect in jest', () => {
 });
 
 
+it('simple lexing', () => {
+    const tokens = lexer('hello I  am    David!');
+    expect(tokens).toEqual(['hello', ' ', 'I', '  ', 'am', '    ', 'David!']);
+});
+
 it('more complex lexing', () => {
     const tokens = lexer('and who are you, the proud lord says, that I must bow so low?');
     expect(tokens).toEqual(['and', ' ', 'who', ' ', 'are', ' ', 'you,', ' ', 'the', ' ', 'proud', ' ', 'lord', ' ', 'says,', ' ', 'that', ' ', 'I', ' ', 'must', ' ', 'bow', ' ', 'so', ' ', 'low?']);
 });
+
+
+it('simple analysis - no highlights', () => {
+    const analyzedTokens = analyzeTokens(lexer('hello I'), new Set<String>());
+    expect(analyzedTokens).toMatchObject(
+        [
+            {
+                type: text,
+                value: 'hello'
+            },
+            {
+                type: whitespace,
+                value: ' '
+            },
+            {
+                type: text,
+                value: 'I'
+            }
+        ]
+    );
+});
+
+it('bigger analysis - no highlights', () => {
+    const analyzedTokens = analyzeTokens(lexer('hello I  am    David!'), new Set<String>());
+    expect(analyzedTokens).toMatchObject(
+        [
+            {
+                type: text,
+                value: 'hello'
+            },
+            {
+                type: whitespace,
+                value: ' '
+            },
+            {
+                type: text,
+                value: 'I'
+            },
+            {
+                type: whitespace,
+                value: '  '
+            },
+            {
+                type: text,
+                value: 'am'
+            },
+            {
+                type: whitespace,
+                value: '    '
+            },
+            {
+                type: text,
+                value: 'David!'
+            }
+        ]
+    );
+});
+

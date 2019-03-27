@@ -1,17 +1,28 @@
-const text = 'text';
-type text = typeof text;
+export const text = 'text';
+export type text = typeof text;
 
-const highlight = 'highlight';
-type highlight = typeof highlight;
+export const highlight = 'highlight';
+export type highlight = typeof highlight;
 
-const whitespace = 'whitespace';
-type whitespace = typeof whitespace;
+export const whitespace = 'whitespace';
+export type whitespace = typeof whitespace;
 
 type TokenType = text | highlight | whitespace;
 
 export interface Token {
     type: TokenType
     value: string
+}
+
+export function analyzeTokens(tokens: String[], set: Set<String>): Array<Token> {
+    return tokens.map(token => {
+        let value = token;
+        if (/^\s+$/.test(token)) {
+            return {type: whitespace, value}
+        } else {
+            return {type: text, value}
+        }
+    });
 }
 
 export function lexer(input: string): String[] {
