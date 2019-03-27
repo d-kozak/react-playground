@@ -4,6 +4,7 @@ import {FirstTooltipExample} from "./FirstTooltipExample";
 import {SecondTooltipExample} from "./SecondTooltipExample";
 
 import './styles.css';
+import TextareaWithExtraTooltip from "./TextareaWithExtraTooltip";
 
 const Tooltip = () => {
 
@@ -11,6 +12,8 @@ const Tooltip = () => {
         <FirstTooltipExample/>
         <Divider/>
         <SecondTooltipExample/>
+        <Divider/>
+        <TextareaWithExtraTooltip/>
     </div>
 };
 
