@@ -8,7 +8,9 @@ export default function ContentEditableWithPureHtml() {
     const [html, setHtml] = useState('Start typing <b>here</b>');
 
     const handleChange = (newHtml: string) => {
-        const pureText = newHtml.replace(/<.+?>/g, '')
+        const pureText = newHtml
+            .replace(/<button .+>.+<\/button>/g, '')
+            .replace(/<.+?>/g, '')
             .replace(/&nbsp;/g, '');
 
 
@@ -24,7 +26,7 @@ export default function ContentEditableWithPureHtml() {
             }
         }).reduce((left, right) => left + right);
 
-        setHtml(processedHtml);
+        setHtml(processedHtml + "<button onclick='console.log(42)'>Click</button>");
     };
 
     return <div>
