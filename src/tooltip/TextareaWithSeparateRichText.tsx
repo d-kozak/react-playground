@@ -2,7 +2,7 @@ import * as React from "react";
 import {useState} from "react";
 import {analyzeTokens, lexer, Token} from "./Lexer";
 
-export default function TextareaWithExtraTooltip() {
+export default function TextareaWithSeparateRichText() {
     const [text, setText] = useState('');
 
     const [tokens, setTokens] = useState<Token[]>([]);
