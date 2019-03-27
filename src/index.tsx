@@ -32,6 +32,13 @@ const styles = {
     menuButton: {
         marginLeft: -12,
         marginRight: 20,
+    },
+    container: {
+        marginRight: "auto",
+        marginLeft: "auto",
+        maxWidth: "1200px",
+        paddingRight: "10px",
+        paddingLeft: "10px"
     }
 };
 
@@ -85,7 +92,7 @@ const App = (props: Props) => {
                 </List>
             </Drawer>
 
-            <main>
+            <main className={classes.container}>
                 <Route path="/" exact={true} component={Home}/>
                 <Route path="/formik" exact={true} component={Formik}/>
                 <Route path="/tooltip" exact={true} component={Tooltip}/>
