@@ -9,7 +9,8 @@ Steps
 - [X] Figure out how to use ContentEditable component with pure html and fire event back to React -> possible using globals such as window 
 - [ ] Find usable React based text editor, use it or learn how to write your own
 - [ ] Go through source code of https://www.npmjs.com/package/react-simple-code-editor
-- [ ] Go through https://github.com/securingsincity/react-ace
-
+- [X] Go through https://github.com/securingsincity/react-ace
+- [ ] Go through the source code of ACE https://github.com/ajaxorg/ace
+ 
 
 
