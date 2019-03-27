@@ -19,6 +19,15 @@ it('testing typeof', () => {
 });
 
 
+it('set behaviour', () => {
+    const set = new Set([1, 2, 3]);
+    expect(set.has(1)).toBe(true);
+    expect(set.has(2)).toBe(true);
+    expect(set.has(3)).toBe(true);
+    expect(set.has(4)).toBe(false);
+
+});
+
 it('testing expect in jest', () => {
     expect(['a']).toEqual(expect.arrayContaining(['a']));
     expect(['a', 'b']).toEqual(expect.arrayContaining(['a', 'b']));
@@ -96,3 +105,78 @@ it('bigger analysis - no highlights', () => {
     );
 });
 
+
+it('simple analysis - highlight cat', () => {
+    const analyzedTokens = analyzeTokens(lexer('A cat and a dog went on a long walk together'), new Set<String>(['cat']));
+    expect(analyzedTokens).toMatchObject([{type: 'text', value: 'A'},
+        {type: 'whitespace', value: ' '},
+        {type: 'highlight', value: 'cat'},
+        {type: 'whitespace', value: ' '},
+        {type: 'text', value: 'and'},
+        {type: 'whitespace', value: ' '},
+        {type: 'text', value: 'a'},
+        {type: 'whitespace', value: ' '},
+        {type: 'text', value: 'dog'},
+        {type: 'whitespace', value: ' '},
+        {type: 'text', value: 'went'},
+        {type: 'whitespace', value: ' '},
+        {type: 'text', value: 'on'},
+        {type: 'whitespace', value: ' '},
+        {type: 'text', value: 'a'},
+        {type: 'whitespace', value: ' '},
+        {type: 'text', value: 'long'},
+        {type: 'whitespace', value: ' '},
+        {type: 'text', value: 'walk'},
+        {type: 'whitespace', value: ' '},
+        {type: 'text', value: 'together'}]);
+});
+
+it('simple analysis - highlight cat and dog', () => {
+    const analyzedTokens = analyzeTokens(lexer('A cat and a dog went on a long walk together'), new Set<String>(['cat', 'dog']));
+    expect(analyzedTokens).toMatchObject([{type: 'text', value: 'A'},
+        {type: 'whitespace', value: ' '},
+        {type: 'highlight', value: 'cat'},
+        {type: 'whitespace', value: ' '},
+        {type: 'text', value: 'and'},
+        {type: 'whitespace', value: ' '},
+        {type: 'text', value: 'a'},
+        {type: 'whitespace', value: ' '},
+        {type: 'highlight', value: 'dog'},
+        {type: 'whitespace', value: ' '},
+        {type: 'text', value: 'went'},
+        {type: 'whitespace', value: ' '},
+        {type: 'text', value: 'on'},
+        {type: 'whitespace', value: ' '},
+        {type: 'text', value: 'a'},
+        {type: 'whitespace', value: ' '},
+        {type: 'text', value: 'long'},
+        {type: 'whitespace', value: ' '},
+        {type: 'text', value: 'walk'},
+        {type: 'whitespace', value: ' '},
+        {type: 'text', value: 'together'}]);
+});
+
+it('simple analysis - highlight cat and walk', () => {
+    const analyzedTokens = analyzeTokens(lexer('A cat and a dog went on a long walk together'), new Set<String>(['cat', 'dog', 'walk']));
+    expect(analyzedTokens).toMatchObject([{type: 'text', value: 'A'},
+        {type: 'whitespace', value: ' '},
+        {type: 'highlight', value: 'cat'},
+        {type: 'whitespace', value: ' '},
+        {type: 'text', value: 'and'},
+        {type: 'whitespace', value: ' '},
+        {type: 'text', value: 'a'},
+        {type: 'whitespace', value: ' '},
+        {type: 'highlight', value: 'dog'},
+        {type: 'whitespace', value: ' '},
+        {type: 'text', value: 'went'},
+        {type: 'whitespace', value: ' '},
+        {type: 'text', value: 'on'},
+        {type: 'whitespace', value: ' '},
+        {type: 'text', value: 'a'},
+        {type: 'whitespace', value: ' '},
+        {type: 'text', value: 'long'},
+        {type: 'whitespace', value: ' '},
+        {type: 'highlight', value: 'walk'},
+        {type: 'whitespace', value: ' '},
+        {type: 'text', value: 'together'}]);
+});

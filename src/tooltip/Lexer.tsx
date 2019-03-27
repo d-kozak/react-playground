@@ -16,11 +16,12 @@ export interface Token {
 
 export function analyzeTokens(tokens: String[], set: Set<String>): Array<Token> {
     return tokens.map(token => {
-        let value = token;
         if (/^\s+$/.test(token)) {
-            return {type: whitespace, value}
+            return {type: whitespace, value: token}
+        } else if (set.has(token)) {
+            return {type: highlight, value: token}
         } else {
-            return {type: text, value}
+            return {type: text, value: token}
         }
     });
 }
