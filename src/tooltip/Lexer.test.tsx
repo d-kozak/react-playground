@@ -1,4 +1,4 @@
-import {analyzeTokens, lexer, serializeTokens, text, whitespace} from "./Lexer";
+import {analyzeTokens, lexer, serializeTokens, Token} from "./Lexer";
 
 it('testing typeof', () => {
     const dog = 'dog';
@@ -7,13 +7,11 @@ it('testing typeof', () => {
     const cat = 'cat';
     const catType = typeof cat;
 
-    // both true
-    console.log(dogType == catType);
-    console.log(dogType === catType);
+    expect(dogType == catType).toBe(true);
+    expect(dogType === catType).toBe(true);
 
-    // both false
-    console.log(dogType != catType);
-    console.log(dogType !== catType);
+    expect(dogType != catType).toBe(false);
+    expect(dogType !== catType).toBe(false);
 
     // typeof 'str1' == typeof 'str2'
 });
@@ -38,6 +36,21 @@ it('testing expect in jest', () => {
 });
 
 
+it('exploring tokens', () => {
+    const highlight: Token = {
+        type: "highlight",
+        value: "str"
+    };
+    console.log(highlight);
+
+    const text: Token = {
+        type: "text",
+        value: "str2"
+    };
+    console.log(text);
+
+});
+
 it('simple lexing', () => {
     const tokens = lexer('hello I  am    David!');
     expect(tokens).toEqual(['hello', ' ', 'I', '  ', 'am', '    ', 'David!']);
@@ -50,19 +63,19 @@ it('more complex lexing', () => {
 
 
 it('simple analysis - no highlights', () => {
-    const analyzedTokens = analyzeTokens(lexer('hello I'), new Set<String>());
+    const analyzedTokens = analyzeTokens(lexer('hello I'), new Set());
     expect(analyzedTokens).toMatchObject(
         [
             {
-                type: text,
+                type: "text",
                 value: 'hello'
             },
             {
-                type: whitespace,
+                type: "whitespace",
                 value: ' '
             },
             {
-                type: text,
+                type: "text",
                 value: 'I'
             }
         ]
@@ -70,35 +83,35 @@ it('simple analysis - no highlights', () => {
 });
 
 it('bigger analysis - no highlights', () => {
-    const analyzedTokens = analyzeTokens(lexer('hello I  am    David!'), new Set<String>());
+    const analyzedTokens = analyzeTokens(lexer('hello I  am    David!'), new Set());
     expect(analyzedTokens).toMatchObject(
         [
             {
-                type: text,
+                type: "text",
                 value: 'hello'
             },
             {
-                type: whitespace,
+                type: "whitespace",
                 value: ' '
             },
             {
-                type: text,
+                type: "text",
                 value: 'I'
             },
             {
-                type: whitespace,
+                type: "whitespace",
                 value: '  '
             },
             {
-                type: text,
+                type: "text",
                 value: 'am'
             },
             {
-                type: whitespace,
+                type: "whitespace",
                 value: '    '
             },
             {
-                type: text,
+                type: "text",
                 value: 'David!'
             }
         ]
@@ -107,7 +120,7 @@ it('bigger analysis - no highlights', () => {
 
 
 it('simple analysis - highlight cat', () => {
-    const analyzedTokens = analyzeTokens(lexer('A cat and a dog went on a long walk together'), new Set<String>(['cat']));
+    const analyzedTokens = analyzeTokens(lexer('A cat and a dog went on a long walk together'), new Set(['cat']));
     expect(analyzedTokens).toMatchObject([{type: 'text', value: 'A'},
         {type: 'whitespace', value: ' '},
         {type: 'highlight', value: 'cat'},
@@ -132,7 +145,7 @@ it('simple analysis - highlight cat', () => {
 });
 
 it('simple analysis - highlight cat and dog', () => {
-    const analyzedTokens = analyzeTokens(lexer('A cat and a dog went on a long walk together'), new Set<String>(['cat', 'dog']));
+    const analyzedTokens = analyzeTokens(lexer('A cat and a dog went on a long walk together'), new Set(['cat', 'dog']));
     expect(analyzedTokens).toMatchObject([{type: 'text', value: 'A'},
         {type: 'whitespace', value: ' '},
         {type: 'highlight', value: 'cat'},
@@ -157,7 +170,7 @@ it('simple analysis - highlight cat and dog', () => {
 });
 
 it('simple analysis - highlight cat and walk', () => {
-    const analyzedTokens = analyzeTokens(lexer('A cat and a dog went on a long walk together'), new Set<String>(['cat', 'dog', 'walk']));
+    const analyzedTokens = analyzeTokens(lexer('A cat and a dog went on a long walk together'), new Set(['cat', 'dog', 'walk']));
     expect(analyzedTokens).toMatchObject([{type: 'text', value: 'A'},
         {type: 'whitespace', value: ' '},
         {type: 'highlight', value: 'cat'},
@@ -183,14 +196,14 @@ it('simple analysis - highlight cat and walk', () => {
 
 it('serialize tokens - no highlights', () => {
     let input = 'Byl jeden pan, ten kozla mel.';
-    const tokens = analyzeTokens(lexer(input), new Set<String>());
+    const tokens = analyzeTokens(lexer(input), new Set());
     const output = serializeTokens(tokens);
     expect(output).toBe(input);
 });
 
 it('serialize tokens - highlight pan', () => {
     let input = 'Byl jeden pan, ten kozla mel.';
-    const tokens = analyzeTokens(lexer(input), new Set<String>(['pan,']));
+    const tokens = analyzeTokens(lexer(input), new Set(['pan,']));
     const output = serializeTokens(tokens);
     const expected = 'Byl jeden <b>pan,</b> ten kozla mel.';
     expect(output).toBe(expected);

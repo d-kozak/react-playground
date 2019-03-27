@@ -1,48 +1,51 @@
-export const text = 'text';
-export type text = typeof text;
+export type Token = TextToken | WhitespaceToken | HightLightToken;
 
-export const highlight = 'highlight';
-export type highlight = typeof highlight;
-
-export const whitespace = 'whitespace';
-export type whitespace = typeof whitespace;
-
-type TokenType = text | highlight | whitespace;
-
-export interface Token {
-    type: TokenType
+export interface TextToken {
+    type: "text"
     value: string
 }
 
-export function serializeTokens(tokens: Array<Token>): String {
+export interface WhitespaceToken {
+    type: "whitespace",
+    value: string
+}
+
+export interface HightLightToken {
+    type: "highlight",
+    value: string
+}
+
+
+export function serializeTokens(tokens: Array<Token>): string {
     return tokens.map(token => {
             switch (token.type) {
-                case text:
-                case whitespace:
+                case "text":
+                case "whitespace":
                     return token.value;
-                case highlight:
+                case "highlight":
                     return `<b>${token.value}</b>`;
-                default:
-                    throw new Error(`Unsupported token type ${token.type}`);
             }
         }
     ).reduce((left, right) => left + right);
 }
 
-export function analyzeTokens(tokens: String[], set: Set<String>): Array<Token> {
+export function analyzeTokens(tokens: string[], set: Set<string>): Array<Token> {
     return tokens.map(token => {
         if (/^\s+$/.test(token)) {
-            return {type: whitespace, value: token}
+            const tkn: Token = {type: "whitespace", value: token};
+            return tkn
         } else if (set.has(token)) {
-            return {type: highlight, value: token}
+            const tkn: Token = {type: "highlight", value: token};
+            return tkn
         } else {
-            return {type: text, value: token}
+            const tkn: Token = {type: "text", value: token};
+            return tkn
         }
     });
 }
 
-export function lexer(input: string): String[] {
-    const tokens = new Array<String>();
+export function lexer(input: string): string[] {
+    const tokens = new Array<string>();
 
     let startIndex = -1;
     let currentIndex = 0;
