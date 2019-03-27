@@ -1,5 +1,7 @@
 import Divider from '@material-ui/core/Divider';
 import * as React from "react";
+import ContentEditableExample from "./ContentEditableExample";
+import ContentEditableWithPureHtml from "./ContentEditableWithPureHtml";
 import {FirstTooltipExample} from "./FirstTooltipExample";
 import {SecondTooltipExample} from "./SecondTooltipExample";
 
@@ -14,6 +16,10 @@ const Tooltip = () => {
         <SecondTooltipExample/>
         <Divider/>
         <TextareaWithSeparateRichText/>
+        <Divider/>
+        <ContentEditableExample/>
+        <Divider/>
+        <ContentEditableWithPureHtml/>
     </div>
 };
 
