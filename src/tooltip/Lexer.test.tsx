@@ -1,4 +1,4 @@
-import {analyzeTokens, lexer, text, whitespace} from "./Lexer";
+import {analyzeTokens, lexer, serializeTokens, text, whitespace} from "./Lexer";
 
 it('testing typeof', () => {
     const dog = 'dog';
@@ -179,4 +179,19 @@ it('simple analysis - highlight cat and walk', () => {
         {type: 'highlight', value: 'walk'},
         {type: 'whitespace', value: ' '},
         {type: 'text', value: 'together'}]);
+});
+
+it('serialize tokens - no highlights', () => {
+    let input = 'Byl jeden pan, ten kozla mel.';
+    const tokens = analyzeTokens(lexer(input), new Set<String>());
+    const output = serializeTokens(tokens);
+    expect(output).toBe(input);
+});
+
+it('serialize tokens - highlight pan', () => {
+    let input = 'Byl jeden pan, ten kozla mel.';
+    const tokens = analyzeTokens(lexer(input), new Set<String>(['pan,']));
+    const output = serializeTokens(tokens);
+    const expected = 'Byl jeden <b>pan,</b> ten kozla mel.';
+    expect(output).toBe(expected);
 });

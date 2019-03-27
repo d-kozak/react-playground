@@ -14,6 +14,21 @@ export interface Token {
     value: string
 }
 
+export function serializeTokens(tokens: Array<Token>): String {
+    return tokens.map(token => {
+            switch (token.type) {
+                case text:
+                case whitespace:
+                    return token.value;
+                case highlight:
+                    return `<b>${token.value}</b>`;
+                default:
+                    throw new Error(`Unsupported token type ${token.type}`);
+            }
+        }
+    ).reduce((left, right) => left + right);
+}
+
 export function analyzeTokens(tokens: String[], set: Set<String>): Array<Token> {
     return tokens.map(token => {
         if (/^\s+$/.test(token)) {
