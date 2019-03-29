@@ -18,7 +18,7 @@ import {useState} from "react";
 import * as ReactDOM from 'react-dom';
 import {BrowserRouter as Router, Link, Route} from 'react-router-dom';
 import Editor from "./editor/Editor";
-import Formik from './formik/FormikExample';
+import FormikExamples from './formik/index';
 import Tooltip from './tooltip';
 
 const styles = {
@@ -100,7 +100,7 @@ const App = (props: Props) => {
 
             <main className={classes.container}>
                 <Route path="/" exact={true} component={Home}/>
-                <Route path="/formik" exact={true} component={Formik}/>
+                <Route path="/formik" exact={true} component={FormikExamples}/>
                 <Route path="/tooltip" exact={true} component={Tooltip}/>
                 <Route path="/editor" exact={true} component={Editor}/>
             </main>
