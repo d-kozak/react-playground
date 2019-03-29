@@ -41,10 +41,10 @@ export default function FormikExample() {
                                 values.phoneNumbers.map((phoneNumber, index) => <div key={index}>
                                     <Field name={`phoneNumbers.${index}`}/>
                                     <ErrorMessage name={`phoneNumbers.${index}`}/>
-                                    <button onClick={() => insert(index, '')}>+</button>
-                                    <button onClick={() => remove(index)}>-</button>
+                                    <button type="button" onClick={() => insert(index, '')}>+</button>
+                                    <button type="button" onClick={() => remove(index)}>-</button>
                                 </div>)
-                                : <button onClick={() => push('')}>Add new</button>
+                                : <button type="button" onClick={() => push('')}>Add new</button>
 
                         }
                     />
