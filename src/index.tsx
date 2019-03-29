@@ -19,6 +19,7 @@ import * as ReactDOM from 'react-dom';
 import {BrowserRouter as Router, Link, Route} from 'react-router-dom';
 import EditorExamples from "./editor/index";
 import FormikExamples from './formik/index';
+import PopupExamples from './reactjspopup';
 import Tooltip from './tooltip';
 
 const styles = {
@@ -95,6 +96,11 @@ const App = (props: Props) => {
                             <ListItemText primary="Editor"/>
                         </ListItem>
                     </Link>
+                    <Link to="/popup">
+                        <ListItem button={true} onClick={() => setOpen(false)}>
+                            <ListItemText primary="Popup"/>
+                        </ListItem>
+                    </Link>
                 </List>
             </Drawer>
 
@@ -103,6 +109,7 @@ const App = (props: Props) => {
                 <Route path="/formik" exact={true} component={FormikExamples}/>
                 <Route path="/tooltip" exact={true} component={Tooltip}/>
                 <Route path="/editor" exact={true} component={EditorExamples}/>
+                <Route path="/popup" exact={true} component={PopupExamples}/>
             </main>
         </Router>
     </div>
