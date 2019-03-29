@@ -23,6 +23,8 @@ export default class AutosubmitFormExample extends React.Component<AutosubmitFor
     render() {
         return <div>
             <h3>Autosubmit example</h3>
+            <p>The value of login is propagated from Formik to the outer component when the input loses focus. But only
+                if the form state is valid.</p>
             <StateDebugger state={this.state} title="Component state"/>
             <Formik
                 initialValues={{login: this.props.login}}
@@ -31,14 +33,13 @@ export default class AutosubmitFormExample extends React.Component<AutosubmitFor
                         .required('Login is required')
                         .max(10, 'Max 10 characters, please')
                 })}
-                render={({values, isSubmitting}) =>
+                render={({values, submitForm}) =>
                     <Form>
                         <label htmlFor="login">Login</label>
                         <br/>
-                        <Field name="login"/>
+                        <Field onBlur={submitForm} name="login"/>
                         <ErrorMessage name="login"/>
                         <StateDebugger state={values} title="Formik state"/>
-                        <button type="submit">Submit</button>
                     </Form>
                 }
                 onSubmit={(values, actions) => {

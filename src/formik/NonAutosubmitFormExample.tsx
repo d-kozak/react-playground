@@ -23,6 +23,7 @@ export default class NonAutosubmitFormExample extends React.Component<NonAutosub
     render() {
         return <div>
             <h3>Non autosubmit example</h3>
+            <p>To propagate the state from Formik up, you have to submit the form using the submit button</p>
             <StateDebugger state={this.state} title="Component state"/>
             <Formik
                 initialValues={{login: this.props.login}}
