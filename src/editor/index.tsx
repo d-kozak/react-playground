@@ -6,8 +6,10 @@ import Typography from "@material-ui/core/Typography";
 import * as React from "react";
 import {ReactNode} from "react";
 import SwipeableViews from "react-swipeable-views";
+import ContentEditableDivExperiment from "./ContentEditableDivExperiment";
 import HIghlightingAndTooltipsEditor from "./HightlightingAndTooltipsEditor";
 import SimpleHighlightingEditor from "./SimpleHighlightingEditor";
+import TextareaExperiment from "./TextareaExperiment";
 
 
 function TabContainer({children, dir}: { children: ReactNode, dir: string }) {
@@ -28,7 +30,7 @@ const styles = (theme: any) => ({
 
 class EditorExamples extends React.Component<any> {
     state = {
-        value: 0,
+        value: 1,
     };
 
     handleChange = (event: any, value: number) => {
@@ -53,6 +55,8 @@ class EditorExamples extends React.Component<any> {
                         variant="fullWidth"
                     >
                         <Tab label="Basic highlighting example"/>
+                        <Tab label="Extending textarea"/>
+                        <Tab label="Extending contenteditable div"/>
                         <Tab label="Highliting and tooltips"/>
                     </Tabs>
                 </AppBar>
@@ -62,6 +66,8 @@ class EditorExamples extends React.Component<any> {
                     onChangeIndex={this.handleChangeIndex}
                 >
                     <TabContainer dir={theme.direction}><SimpleHighlightingEditor/></TabContainer>
+                    <TabContainer dir={theme.direction}><TextareaExperiment/></TabContainer>
+                    <TabContainer dir={theme.direction}><ContentEditableDivExperiment/></TabContainer>
                     <TabContainer dir={theme.direction}><HIghlightingAndTooltipsEditor/></TabContainer>
                 </SwipeableViews>
             </div>

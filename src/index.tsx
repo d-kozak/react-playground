@@ -19,6 +19,7 @@ import * as ReactDOM from 'react-dom';
 import {BrowserRouter as Router, Link, Route} from 'react-router-dom';
 import EditorExamples from "./editor/index";
 import FormikExamples from './formik/index';
+import ReactAceExample from "./reactace/ReactAceExample";
 import PopupExamples from './reactjspopup';
 import Tooltip from './tooltip';
 
@@ -101,6 +102,11 @@ const App = (props: Props) => {
                             <ListItemText primary="Popup"/>
                         </ListItem>
                     </Link>
+                    <Link to="/race">
+                        <ListItem button={true} onClick={() => setOpen(false)}>
+                            <ListItemText primary="React Ace"/>
+                        </ListItem>
+                    </Link>
                 </List>
             </Drawer>
 
@@ -110,6 +116,7 @@ const App = (props: Props) => {
                 <Route path="/tooltip" exact={true} component={Tooltip}/>
                 <Route path="/editor" exact={true} component={EditorExamples}/>
                 <Route path="/popup" exact={true} component={PopupExamples}/>
+                <Route path="/race" exact={true} component={ReactAceExample}/>
             </main>
         </Router>
     </div>
