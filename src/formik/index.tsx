@@ -6,8 +6,9 @@ import Typography from '@material-ui/core/Typography';
 import * as React from 'react';
 import {ReactNode} from 'react';
 import SwipeableViews from 'react-swipeable-views';
-import AutoupdateFormExample from "./AutoupdateFormExample";
+import AutosubmitFormExample from "./AutosubmitFormExample";
 import FormikExample from "./FormikExample";
+import NonAutosubmitFormExample from "./NonAutosubmitFormExample";
 
 function TabContainer({children, dir}: { children: ReactNode, dir: string }) {
     return (
@@ -52,7 +53,8 @@ class FormikExamples extends React.Component<any> {
                         variant="fullWidth"
                     >
                         <Tab label="Basic form example"/>
-                        <Tab label="Example with autosubmiting form"/>
+                        <Tab label="Example without autosubmit"/>
+                        <Tab label="Example with autosubmit"/>
                     </Tabs>
                 </AppBar>
                 <SwipeableViews
@@ -61,7 +63,8 @@ class FormikExamples extends React.Component<any> {
                     onChangeIndex={this.handleChangeIndex}
                 >
                     <TabContainer dir={theme.direction}><FormikExample/></TabContainer>
-                    <TabContainer dir={theme.direction}><AutoupdateFormExample/></TabContainer>
+                    <TabContainer dir={theme.direction}><NonAutosubmitFormExample login="Adam"/></TabContainer>
+                    <TabContainer dir={theme.direction}><AutosubmitFormExample login="Adam"/></TabContainer>
                 </SwipeableViews>
             </div>
         );
