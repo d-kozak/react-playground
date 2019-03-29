@@ -18,6 +18,7 @@ import {useState} from "react";
 import * as ReactDOM from 'react-dom';
 import {BrowserRouter as Router, Link, Route} from 'react-router-dom';
 import Editor from "./editor/Editor";
+import Formik from './formik/FormikExample';
 import Tooltip from './tooltip';
 
 const styles = {
@@ -47,7 +48,6 @@ export interface Props extends WithStyles<typeof styles> {
 }
 
 const Home = () => <h3>Home</h3>;
-const Formik = () => <h3>Formik</h3>;
 
 const App = (props: Props) => {
     const {classes} = props;
