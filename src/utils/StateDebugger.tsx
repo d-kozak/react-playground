@@ -7,9 +7,9 @@ export interface StateDebuggerProps {
 
 const StateDebugger = ({state, title = 'State is'}: StateDebuggerProps) => <div>
     <h5>{title}</h5>
-    <p>
+    <pre>
         {JSON.stringify(state, null, 4)}
-    </p>
+    </pre>
 </div>;
 
 export default StateDebugger;
