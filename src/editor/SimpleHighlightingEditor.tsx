@@ -10,7 +10,7 @@ import {analyzeTokens, lexer} from "../tooltip/Lexer";
  * javascript Set does not support functional filter, map etc operations, therefore I use a normal array
  */
 
-const defaultCode = `A cat and a dog are friends`;
+const defaultCode = `My cat and my dog are friends`;
 
 const HighlighForm = ({wordsToHighlight, setWordsToHighlight}: { wordsToHighlight: Array<string>, setWordsToHighlight: Dispatch<SetStateAction<Array<string>>> }) => {
     return <div>
@@ -57,7 +57,7 @@ const HighlighForm = ({wordsToHighlight, setWordsToHighlight}: { wordsToHighligh
     </div>
 };
 
-export default function EditorComponent() {
+export default function SimpleHighlightingEditor() {
     const [code, setCode] = useState(defaultCode);
     const [wordsToHighlight, setWordsToHighlight] = useState(['dog', 'cat']);
 
