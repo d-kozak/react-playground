@@ -1,6 +1,7 @@
 import {ErrorMessage, Field, FieldArray, Form, Formik} from "formik";
 import * as React from "react";
 import * as Yup from 'yup';
+import StateDebugger from "../utils/StateDebugger";
 
 const schema = Yup.object({
     name: Yup.string().max(10).required(),
@@ -50,6 +51,7 @@ export default function FormikExample() {
                     />
                     <br/>
                     <button type="submit" disabled={isSubmitting}>Submit</button>
+                    <StateDebugger state={values} title="Form state"/>
                 </Form>
             }}
         />

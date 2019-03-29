@@ -3,8 +3,8 @@ import * as React from "react";
 import {Dispatch, SetStateAction, useState} from "react";
 import Editor from 'react-simple-code-editor';
 import * as Yup from 'yup';
-import StateDebugger from "../formik/StateDebugger";
 import {analyzeTokens, lexer} from "../tooltip/Lexer";
+import StateDebugger from "../utils/StateDebugger";
 
 /**
  * javascript Set does not support functional filter, map etc operations, therefore I use a normal array

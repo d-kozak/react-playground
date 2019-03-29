@@ -1,7 +1,7 @@
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import * as React from 'react';
 import * as Yup from 'yup';
-import StateDebugger from "./StateDebugger";
+import StateDebugger from "../utils/StateDebugger";
 
 interface AutosubmitFormExampleProps {
     login: string
