@@ -7,6 +7,5 @@ export default () => {
         <Popup trigger={<span> Trigger</span>} position="right center" on="hover">
             <div>Popup content here !!</div>
         </Popup>
-        }
     </div>
 };
