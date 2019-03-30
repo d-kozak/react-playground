@@ -20,28 +20,7 @@ class DraftJsExperiment extends React.Component<Props, State> {
         super(props);
         this.state = {
             highlightedWords: ['const', 'let'],
-            editorState: EditorState.createEmpty(new CompositeDecorator([
-                {
-                    strategy: (contentBlock, callback) => {
-                        if (this.state.highlightedWords.length == 0) {
-                            return;
-                        }
-                        const regex = this.createBoldRegex();
-                        const text = contentBlock.getText();
-                        let matchArr, start;
-                        while ((matchArr = regex.exec(text)) !== null) {
-                            start = matchArr.index;
-                            callback(start, start + matchArr[0].length);
-                        }
-                    },
-                    component: (props: any) => <Popup trigger={<b {...props}>{props.children}</b>}
-                                                      position="right center" on="hover">
-                        <button onClick={() => this.stopHighlightingWord(props.decoratedText)}>Stop highlighting this
-                            word
-                        </button>
-                    </Popup>
-                }
-            ]))
+            editorState: EditorState.createEmpty(this.createDecorators())
         };
     }
 
@@ -50,7 +29,27 @@ class DraftJsExperiment extends React.Component<Props, State> {
             highlightedWords: prevState.highlightedWords.filter(elem => word != elem)
         }), () => {
             console.log(`highlighting for ${word} should be off by now...`);
+            this.setState({
+                editorState: EditorState.set(this.state.editorState, {decorator: this.createDecorators()})
+            });
         });
+    }
+
+    render() {
+        return <div>
+            <h1>Draft.js experiment</h1>
+            <p>Experiment with draftjs editor</p>
+            <p>Maybe what I want will be doable in a similar manner to https://github.com/SamyPesse/draft-js-prism and
+                https://github.com/withspectrum/draft-js-prism-plugin</p>
+            <div style={styles.editor} onClick={this.focusEditor}>
+                <Editor
+                    ref={this.setEditor}
+                    editorState={this.state.editorState}
+                    onChange={this.onChange}
+                />
+            </div>
+            <StateDebugger state={this.state} title="Editor state"/>
+        </div>;
     }
 
     createBoldRegex(): RegExp {
@@ -70,19 +69,29 @@ class DraftJsExperiment extends React.Component<Props, State> {
         }
     };
 
-    render() {
-        return <div>
-            <h1>Draft.js experiment</h1>
-            <p>Experiment with draftjs editor</p>
-            <div style={styles.editor} onClick={this.focusEditor}>
-                <Editor
-                    ref={this.setEditor}
-                    editorState={this.state.editorState}
-                    onChange={this.onChange}
-                />
-            </div>
-            <StateDebugger state={this.state} title="Editor state"/>
-        </div>;
+    private createDecorators() {
+        return new CompositeDecorator([
+            {
+                strategy: (contentBlock, callback) => {
+                    if (this.state.highlightedWords.length == 0) {
+                        return;
+                    }
+                    const regex = this.createBoldRegex();
+                    const text = contentBlock.getText();
+                    let matchArr, start;
+                    while ((matchArr = regex.exec(text)) !== null) {
+                        start = matchArr.index;
+                        callback(start, start + matchArr[0].length);
+                    }
+                },
+                component: (props: any) => <Popup trigger={<b {...props}>{props.children}</b>}
+                                                  position="right center" on="hover">
+                    <button onClick={() => this.stopHighlightingWord(props.decoratedText)}>Stop highlighting
+                        word {props.decoratedText}
+                    </button>
+                </Popup>
+            }
+        ]);
     }
 }
 
