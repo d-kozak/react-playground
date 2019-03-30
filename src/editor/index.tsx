@@ -7,9 +7,9 @@ import * as React from "react";
 import {ReactNode} from "react";
 import SwipeableViews from "react-swipeable-views";
 import ContentEditableDivExperiment from "./ContentEditableDivExperiment";
+import DraftJsExperiment from "./DraftJsExperiment";
 import HIghlightingAndTooltipsEditor from "./HightlightingAndTooltipsEditor";
 import SimpleHighlightingEditor from "./SimpleHighlightingEditor";
-import TextareaExperiment from "./TextareaExperiment";
 
 
 function TabContainer({children, dir}: { children: ReactNode, dir: string }) {
@@ -55,7 +55,7 @@ class EditorExamples extends React.Component<any> {
                         variant="fullWidth"
                     >
                         <Tab label="Basic highlighting example"/>
-                        <Tab label="Extending textarea"/>
+                        <Tab label="Playing with draft.js"/>
                         <Tab label="Extending contenteditable div"/>
                         <Tab label="Highliting and tooltips"/>
                     </Tabs>
@@ -66,7 +66,7 @@ class EditorExamples extends React.Component<any> {
                     onChangeIndex={this.handleChangeIndex}
                 >
                     <TabContainer dir={theme.direction}><SimpleHighlightingEditor/></TabContainer>
-                    <TabContainer dir={theme.direction}><TextareaExperiment/></TabContainer>
+                    <TabContainer dir={theme.direction}><DraftJsExperiment/></TabContainer>
                     <TabContainer dir={theme.direction}><ContentEditableDivExperiment/></TabContainer>
                     <TabContainer dir={theme.direction}><HIghlightingAndTooltipsEditor/></TabContainer>
                 </SwipeableViews>
