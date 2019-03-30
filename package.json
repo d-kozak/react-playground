@@ -16,6 +16,7 @@
     "draft-js": "^0.10.5",
     "formik": "^1.5.1",
     "hoist-non-react-statics": "^3.3.0",
+    "immutable": "^4.0.0-rc.12",
     "react": "^16.8.5",
     "react-ace": "^6.4.0",
     "react-contenteditable": "^3.2.6",

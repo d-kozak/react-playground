@@ -1,6 +1,9 @@
-import {CompositeDecorator, Editor, EditorState} from 'draft-js';
+import {CompositeDecorator, ContentBlock, ContentState, Editor, EditorState} from 'draft-js';
+import * as Immutable from "immutable";
+import {List} from "immutable";
 import * as React from "react";
 import Popup from "reactjs-popup";
+import {lexer} from "../tooltip/Lexer";
 import StateDebugger from "../utils/StateDebugger";
 
 
@@ -20,9 +23,49 @@ class DraftJsExperiment extends React.Component<Props, State> {
 
     constructor(props: Props) {
         super(props);
+        const decorator: any = {
+
+            getPropsForKey(key: string): any {
+                return 42;
+            },
+            getComponentForKey(key: string): Function {
+                return () => {
+                    if (key == '+') {
+                        return <span>+</span>;
+                    } else if (/^number-\d+$/g.test(key)) {
+                        const number = Number(key.split('-')[1]);
+                        return <span>{number}</span>
+                    }
+                    throw new Error(`unknown key ${key}`);
+                };
+            },
+            getDecorations(block: ContentBlock, contentState: ContentState): List<string> {
+                const decorations = Array(block.getLength()).fill(null);
+                const text = block.getText();
+                const tokens = lexer(text);
+
+                let textIndex = 0;
+                let tokenIndex = 0;
+                while (textIndex < text.length && tokenIndex < tokens.length) {
+                    const currentToken = tokens[tokenIndex];
+                    if (currentToken == '+') {
+                        decorations[textIndex] = '+';
+                    } else if (/^\d+$/g.test(currentToken)) {
+                        for (let i = textIndex; i < textIndex + currentToken.length; i++) {
+                            decorations[i] = `number-${currentToken}`
+                        }
+                    }
+                    textIndex += currentToken.length;
+                    tokenIndex++;
+                }
+
+                return Immutable.List(decorations);
+            }
+        };
+
         this.state = {
             highlightedWords: defaultWordsToHighlight,
-            editorState: EditorState.createEmpty(this.createDecorators(defaultWordsToHighlight))
+            editorState: EditorState.createEmpty(decorator)
         };
     }
 
