@@ -17,6 +17,8 @@ import * as React from "react";
 import {useState} from "react";
 import * as ReactDOM from 'react-dom';
 import {BrowserRouter as Router, Link, Route} from 'react-router-dom';
+
+import DraftJsExamples from './draftjs/index';
 import EditorExamples from "./editor/index";
 import FormikExamples from './formik/index';
 import ReactAceExample from "./reactace/ReactAceExample";
@@ -107,6 +109,11 @@ const App = (props: Props) => {
                             <ListItemText primary="React Ace"/>
                         </ListItem>
                     </Link>
+                    <Link to="/draftjs">
+                        <ListItem button={true} onClick={() => setOpen(false)}>
+                            <ListItemText primary="Draft.js"/>
+                        </ListItem>
+                    </Link>
                 </List>
             </Drawer>
 
@@ -117,6 +124,7 @@ const App = (props: Props) => {
                 <Route path="/editor" exact={true} component={EditorExamples}/>
                 <Route path="/popup" exact={true} component={PopupExamples}/>
                 <Route path="/race" exact={true} component={ReactAceExample}/>
+                <Route path="/draftjs" exact={true} component={DraftJsExamples}/>
             </main>
         </Router>
     </div>
