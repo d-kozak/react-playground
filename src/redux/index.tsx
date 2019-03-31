@@ -71,14 +71,18 @@ interface CounterProps {
     setValue: (newValue: number) => void,
 }
 
-const Counter = ({count, increment, decrement, setValue}: CounterProps) => <div className="counter">
-    <p>My amazing counter</p>
-    <input type="number" value={count} onChange={e => setValue(Number(e.target.value))} className="current-count"/>
-    <div>
-        <button className="counter-button" onClick={increment}>+</button>
-        <button className="counter-button" onClick={decrement}>-</button>
-    </div>
-</div>;
+const Counter = ({count, increment, decrement, setValue}: CounterProps) => {
+    const inputStyle = count < 0 ? {background: "#D40002"} : {};
+    return <div className="counter">
+        <p>My amazing counter</p>
+        <input type="number" style={inputStyle} value={count} onChange={e => setValue(Number(e.target.value))}
+               className="current-count"/>
+        <div>
+            <button className="counter-button" onClick={increment}>+</button>
+            <button className="counter-button" onClick={decrement}>-</button>
+        </div>
+    </div>;
+};
 
 const mapStateToProps = (state: IncState): Partial<CounterProps> => ({
     count: state.count
