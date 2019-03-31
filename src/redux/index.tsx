@@ -1,8 +1,10 @@
 import * as React from "react";
 import {connect, Provider} from "react-redux";
 
-import {createStore} from "redux";
+import {applyMiddleware, createStore} from "redux";
+import {createLogger} from 'redux-logger';
 
+import "./styles.css";
 
 interface IncState {
     count: number
@@ -43,7 +45,10 @@ const reducer = (currentState: IncState = initialState, action: IncAction): IncS
 };
 
 const store = createStore(
-    reducer
+    reducer,
+    applyMiddleware(
+        createLogger()
+    )
 );
 
 
@@ -53,10 +58,13 @@ interface CounterProps {
     decrement: () => void
 }
 
-const Counter = ({count, increment, decrement}: CounterProps) => <div>
-    <p>Current count is {count} </p>
-    <button onClick={increment}>+</button>
-    <button onClick={decrement}>-</button>
+const Counter = ({count, increment, decrement}: CounterProps) => <div className="counter">
+    <p>Current count</p>
+    <span className="current-count">{count}</span>
+    <div>
+        <button className="counter-button" onClick={increment}>+</button>
+        <button className="counter-button" onClick={decrement}>-</button>
+    </div>
 </div>;
 
 const mapStateToProps = (state: IncState): Partial<CounterProps> => ({
@@ -71,7 +79,6 @@ const mapDispatchToProps = (dispatch: ((action: IncAction) => void)): Partial<Co
 const ConnectedCounter = connect(mapStateToProps, mapDispatchToProps)(Counter);
 
 export default () => {
-
 
     return <Provider store={store}>
         <h1>Redux example</h1>

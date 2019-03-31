@@ -1,0 +1,32 @@
+.counter-button {
+    font-size: calc(20px + 2vmin);
+    border-radius: 15px;
+    padding: 10px;
+    margin: 10px;
+    color: #fff;
+    background: #ff890a;
+}
+
+.counter {
+    border-radius: 5px;
+    background: #5c5c5c;
+    text-align: center;
+    padding: 10px;
+    border: 1px solid;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.current-count {
+    border-radius: 5px;
+    background: #fff;
+    padding: 5px;
+    font-size: calc(20px + 4vmin);
+}
+
+.counter p {
+    color: #fff;
+    font-size: calc(20px + 2vmin);
+}
