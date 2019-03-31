@@ -23,6 +23,7 @@ import EditorExamples from "./editor/index";
 import FormikExamples from './formik/index';
 import ReactAceExample from "./reactace/ReactAceExample";
 import PopupExamples from './reactjspopup';
+import ReduxExample from './redux';
 import Tooltip from './tooltip';
 
 const styles = {
@@ -114,6 +115,11 @@ const App = (props: Props) => {
                             <ListItemText primary="Draft.js"/>
                         </ListItem>
                     </Link>
+                    <Link to="/redux">
+                        <ListItem button={true} onClick={() => setOpen(false)}>
+                            <ListItemText primary="Redux"/>
+                        </ListItem>
+                    </Link>
                 </List>
             </Drawer>
 
@@ -125,6 +131,7 @@ const App = (props: Props) => {
                 <Route path="/popup" exact={true} component={PopupExamples}/>
                 <Route path="/race" exact={true} component={ReactAceExample}/>
                 <Route path="/draftjs" exact={true} component={DraftJsExamples}/>
+                <Route path="/redux" exact={true} component={ReduxExample}/>
             </main>
         </Router>
     </div>
