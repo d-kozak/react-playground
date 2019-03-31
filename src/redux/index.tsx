@@ -18,13 +18,19 @@ interface Decrement {
     type: "decrement"
 }
 
-type IncAction = Increment | Decrement;
+interface SetValue {
+    type: "setValue",
+    newValue: number
+}
+
+type IncAction = Increment | Decrement | SetValue;
 
 
 const incrementAction = (): IncAction => ({type: "increment"});
 
 const decrementAction = (): IncAction => ({type: "decrement"});
 
+const setValueAction = (newValue: number): IncAction => ({type: "setValue", newValue});
 
 const initialState: IncState = {
     count: 0
@@ -39,6 +45,10 @@ const reducer = (currentState: IncState = initialState, action: IncAction): IncS
         case "decrement":
             return {
                 count: currentState.count - 1
+            };
+        case "setValue":
+            return {
+                count: action.newValue
             };
     }
     return currentState;
@@ -57,12 +67,13 @@ const store = createStore(
 interface CounterProps {
     count: number,
     increment: () => void,
-    decrement: () => void
+    decrement: () => void,
+    setValue: (newValue: number) => void,
 }
 
-const Counter = ({count, increment, decrement}: CounterProps) => <div className="counter">
-    <p>Current count</p>
-    <span className="current-count">{count}</span>
+const Counter = ({count, increment, decrement, setValue}: CounterProps) => <div className="counter">
+    <p>My amazing counter</p>
+    <input type="number" value={count} onChange={e => setValue(Number(e.target.value))} className="current-count"/>
     <div>
         <button className="counter-button" onClick={increment}>+</button>
         <button className="counter-button" onClick={decrement}>-</button>
@@ -75,7 +86,8 @@ const mapStateToProps = (state: IncState): Partial<CounterProps> => ({
 
 const mapDispatchToProps = (dispatch: ((action: IncAction) => void)): Partial<CounterProps> => ({
     increment: () => dispatch(incrementAction()),
-    decrement: () => dispatch(decrementAction())
+    decrement: () => dispatch(decrementAction()),
+    setValue: (newValue => dispatch(setValueAction(newValue)))
 });
 
 const ConnectedCounter = connect(mapStateToProps, mapDispatchToProps)(Counter);

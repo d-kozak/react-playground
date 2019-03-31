@@ -5,6 +5,9 @@
     margin: 10px;
     color: #fff;
     background: #ff890a;
+    width: 60px;
+    height: 60px;
+    vertical-align: middle;
 }
 
 .counter {
@@ -20,7 +23,9 @@
 }
 
 .current-count {
-    border-radius: 5px;
+    width: 75px;
+    text-align: center;
+    border-radius: 50px;
     background: #fff;
     padding: 5px;
     font-size: calc(20px + 4vmin);
@@ -29,4 +34,10 @@
 .counter p {
     color: #fff;
     font-size: calc(20px + 2vmin);
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
