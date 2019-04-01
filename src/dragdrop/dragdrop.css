@@ -1,0 +1,14 @@
+.movable-elem {
+    background: #000;
+    height: 200px;
+    width: 200px;
+    color: #fff;
+    border-radius: 15px;
+    position: fixed;
+    text-align: center;
+}
+
+.movable-elem h1 {
+    horiz-align: center;
+    vertical-align: center;
+}

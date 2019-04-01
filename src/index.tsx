@@ -20,6 +20,7 @@ import * as ReactDOM from 'react-dom';
 import {Provider} from "react-redux";
 import {Link, Route} from 'react-router-dom';
 import DraftJsExamples from './draftjs/index';
+import DragAndDrop from "./dragdrop/DragAndDrop";
 import EditorExamples from "./editor/index";
 import FormikExamples from './formik/index';
 import HomeComponent from './home';
@@ -124,6 +125,11 @@ const App = (props: Props) => {
                                 <ListItemText primary="Redux"/>
                             </ListItem>
                         </Link>
+                        <Link to="/drag-drop">
+                            <ListItem button={true} onClick={() => setOpen(false)}>
+                                <ListItemText primary="Drag and drop"/>
+                            </ListItem>
+                        </Link>
                     </List>
                 </Drawer>
 
@@ -136,6 +142,7 @@ const App = (props: Props) => {
                     <Route path="/race" exact={true} component={ReactAceExample}/>
                     <Route path="/draftjs" exact={true} component={DraftJsExamples}/>
                     <Route path="/redux" exact={true} component={ReduxExample}/>
+                    <Route path="/drag-drop" exact={true} component={DragAndDrop}/>
                 </main>
             </ConnectedRouter>
         </Provider>
