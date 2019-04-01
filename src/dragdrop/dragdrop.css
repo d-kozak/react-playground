@@ -8,7 +8,9 @@
     text-align: center;
 }
 
-.movable-elem h1 {
-    horiz-align: center;
-    vertical-align: center;
+.movable-elem h3 {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
