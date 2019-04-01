@@ -22,6 +22,7 @@ import {Link, Route} from 'react-router-dom';
 import DraftJsExamples from './draftjs/index';
 import EditorExamples from "./editor/index";
 import FormikExamples from './formik/index';
+import HomeComponent from './home';
 import ReactAceExample from "./reactace/ReactAceExample";
 import PopupExamples from './reactjspopup';
 import ReduxExample from './redux';
@@ -53,8 +54,6 @@ const styles = {
 
 export interface Props extends WithStyles<typeof styles> {
 }
-
-const Home = () => <h3>Home</h3>;
 
 const store = configureStore();
 
@@ -129,7 +128,7 @@ const App = (props: Props) => {
                 </Drawer>
 
                 <main className={classes.container}>
-                    <Route path="/" exact={true} component={Home}/>
+                    <Route path="/" exact={true} component={HomeComponent}/>
                     <Route path="/formik" exact={true} component={FormikExamples}/>
                     <Route path="/tooltip" exact={true} component={Tooltip}/>
                     <Route path="/editor" exact={true} component={EditorExamples}/>

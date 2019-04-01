@@ -5,7 +5,7 @@ import {applyMiddleware, combineReducers, createStore, DeepPartial, Reducer} fro
 import {composeWithDevTools} from "redux-devtools-extension";
 import {createLogger} from "redux-logger";
 
-interface AppState {
+export interface AppState {
     router: RouterState
 }
 
