@@ -1,5 +1,4 @@
 import * as React from "react";
-import {useState} from "react";
 import "./dragdrop.css";
 
 const DragAndDrop = () => {
@@ -11,47 +10,71 @@ const DragAndDrop = () => {
 };
 
 
-const MovableElem = () => {
-    const [position, setPosition] = useState({
-        top: "250px",
-        left: "500px"
-    });
+interface MovableElemState {
+    currentTopLeftCornerPosition: [number, number],
+    previousMousePosition: [number, number]
+    isDragged: boolean
+}
 
-    const [isDragged, setIsDragged] = useState(false);
+class MovableElem extends React.Component<{}, MovableElemState> {
 
+    constructor(props: any) {
+        super(props);
+        this.state = {
+            currentTopLeftCornerPosition: [500, 250],
+            previousMousePosition: [500, 250],
+            isDragged: false
+        };
+    }
 
-    const handleDrag = (e: any) => {
-
-        const {clientX, clientY} = e;
-        console.log(clientX);
-        console.log(clientY);
-
-        const {top, left} = e.target.style;
-        console.log(top);
-        console.log(left);
-
-        console.log(`Setting position to [${clientX},${clientY}]`);
-        setPosition({
-            top: `${clientY}px`,
-            left: `${clientX}px`
+    handleMouseDown = (e: any) => {
+        const newX = Number(e.clientX);
+        const newY = Number(e.clientY);
+        this.setState({
+            isDragged: true,
+            previousMousePosition: [newX, newY]
         });
 
     };
 
+    handleMouseUp = (e: any) => {
+        this.setState({
+            isDragged: false
+        });
+    };
 
-    return <div
-        onMouseDown={e => setIsDragged(true)}
-        onMouseUp={e => setIsDragged(false)}
-        onMouseMove={e => {
-            if (isDragged) {
-                handleDrag(e);
-            }
-        }}
-        style={position}
-        className="movable-elem">
-        <h1>Elem</h1>
-    </div>
-};
+    handleMouseMove = (e: any) => {
+        if (this.state.isDragged) {
+            const newX = Number(e.clientX);
+            const newY = Number(e.clientY);
+            const diffX = newX - this.state.previousMousePosition[0];
+            const diffY = newY - this.state.previousMousePosition[1];
+            const currentTopLeftCornerPosition: [number, number] = [this.state.currentTopLeftCornerPosition[0] + diffX, this.state.currentTopLeftCornerPosition[1] + diffY];
 
+            this.setState({
+                previousMousePosition: [newX, newY],
+                currentTopLeftCornerPosition
+            });
+        }
+    };
+
+    getPositionAsCssStyle = () => ({
+        left: this.state.currentTopLeftCornerPosition[0] + 'px',
+        top: this.state.currentTopLeftCornerPosition[1] + 'px'
+    });
+
+    render() {
+        return <div
+            onMouseDown={this.handleMouseDown}
+            onMouseUp={this.handleMouseUp}
+            onMouseMove={this.handleMouseMove}
+            style={this.getPositionAsCssStyle()}
+            className="movable-elem">
+            <h1>Elem</h1>
+            <p>Drag me around :)</p>
+        </div>;
+    }
+
+}
 
 export default DragAndDrop;
