@@ -46,7 +46,8 @@ export default class CompositeDecoratorExample extends React.Component<{}, State
     render() {
         return <div>
             <h1>DraftJs</h1>
-            <p>Example using composite decorator</p>
+            <p>Example using a composite decorator</p>
+            <p>It makes any words starting with # <b>bold</b></p>
             <div style={styles}>
                 <Draft.Editor editorState={this.state.editorState} onChange={this.setEditorState}/>
             </div>
