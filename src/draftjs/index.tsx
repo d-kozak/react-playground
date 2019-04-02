@@ -6,7 +6,8 @@ import Typography from "@material-ui/core/Typography";
 import * as React from "react";
 import {ReactNode} from "react";
 import SwipeableViews from "react-swipeable-views";
-import FirstDraftJsExample from "./FirstDraftJsExample";
+import CompositeDecoratorExample from "./CompositeDecoratorExample";
+import CustomDecoratorExample from "./CustomDecoratorExample";
 
 function TabContainer({children, dir}: { children: ReactNode, dir: string }) {
     return (
@@ -26,7 +27,7 @@ const styles = (theme: any) => ({
 
 class EditorExamples extends React.Component<any> {
     state = {
-        value: 0,
+        value: 1,
     };
 
     handleChange = (event: any, value: number) => {
@@ -50,7 +51,8 @@ class EditorExamples extends React.Component<any> {
                         textColor="primary"
                         variant="fullWidth"
                     >
-                        <Tab label="First example"/>
+                        <Tab label="Composite decorator"/>
+                        <Tab label="Custom decorator"/>
                     </Tabs>
                 </AppBar>
                 <SwipeableViews
@@ -58,7 +60,8 @@ class EditorExamples extends React.Component<any> {
                     index={this.state.value}
                     onChangeIndex={this.handleChangeIndex}
                 >
-                    <TabContainer dir={theme.direction}><FirstDraftJsExample/></TabContainer>
+                    <TabContainer dir={theme.direction}><CompositeDecoratorExample/></TabContainer>
+                    <TabContainer dir={theme.direction}><CustomDecoratorExample/></TabContainer>
 
                 </SwipeableViews>
             </div>

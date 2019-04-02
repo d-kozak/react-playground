@@ -15,7 +15,7 @@ export interface State {
     editorState: Draft.EditorState
 }
 
-export default class FirstDraftJsExample extends React.Component<{}, State> {
+export default class CompositeDecoratorExample extends React.Component<{}, State> {
 
     constructor(props: any) {
         super(props);
@@ -46,6 +46,7 @@ export default class FirstDraftJsExample extends React.Component<{}, State> {
     render() {
         return <div>
             <h1>DraftJs</h1>
+            <p>Example using composite decorator</p>
             <div style={styles}>
                 <Draft.Editor editorState={this.state.editorState} onChange={this.setEditorState}/>
             </div>
