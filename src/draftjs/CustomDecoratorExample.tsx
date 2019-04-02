@@ -2,8 +2,6 @@ import * as Draft from "draft-js";
 import * as Immutable from "immutable";
 import * as React from "react";
 import {CSSProperties} from "react";
-import * as ReactTooltip from "react-tooltip";
-// import * as ReactTooltip from "react-tooltip";
 import StateDebugger from "../utils/StateDebugger";
 
 const styles: CSSProperties = {
@@ -51,27 +49,13 @@ export default class CustomDecoratorExample extends React.Component<{}, State> {
         };
     };
 
-    regexStrategy = (block: Draft.ContentBlock, callback: (start: number, end: number) => void) => {
-        const text = block.getText();
-        let result: RegExpExecArray;
-        let regex = /(^|\s)#\w+/g;
-        while ((result = regex.exec(text) as RegExpExecArray) != null) {
-            let start = result.index;
-            let end = start + result[0].length;
-            callback(start, end);
-        }
-    };
-
     setEditorState = (newState: Draft.EditorState) => this.setState({editorState: newState});
 
     render() {
         return <div>
             <h1>DraftJs</h1>
             <p>Example using composite decorator</p>
-            <ReactTooltip id='foo' delayHide={500} place="top"
-                          type="dark">
-                <h1>Hello</h1>
-            </ReactTooltip>
+            <p>Unfortunately it is not working now :(</p>
             <div style={styles}>
                 <Draft.Editor editorState={this.state.editorState} onChange={this.setEditorState}/>
             </div>
