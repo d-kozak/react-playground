@@ -8,7 +8,6 @@ const styles: CSSProperties = {
     border: "solid 1px"
 };
 
-// const regexComponent = (props:any) => <span style={{ backgroundColor: "lightgreen" }}>{props.children}</span>;
 const regexComponent = (props: any) => <b>{props.children}</b>;
 
 export interface State {
